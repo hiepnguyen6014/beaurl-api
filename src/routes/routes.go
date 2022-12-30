@@ -1,6 +1,7 @@
-package routers
+package routes
 
 import (
+	"fmt"
 	"net/http"
 	"os"
 
@@ -16,6 +17,8 @@ func Routers() *gin.Engine {
 	router := gin.Default()
 
 	router.GET("/ping", func(ctx *gin.Context) {
+		fmt.Printf("ClientIP: %s\n", ctx.ClientIP())
+		fmt.Printf("Domain: %s\n", ctx.Request.Host)
 		ctx.JSON(http.StatusOK, gin.H{
 			"message": "ping",
 		})
