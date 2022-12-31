@@ -1,1 +1,1 @@
-# beaurl-api
+# Golang Gin for Beaurl
