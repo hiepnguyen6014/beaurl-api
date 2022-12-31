@@ -11,10 +11,12 @@ import (
 func main() {
 	configs.LoadEnv()
 
-	fmt.Println("http://127.0.0.1:" + os.Getenv("PORT"))
-
 	router := routes.Routers()
 
+	configs.ConnectDB()
+	configs.CommonConfigs(router)
+
+	fmt.Println("http://127.0.0.1:" + os.Getenv("PORT"))
 	router.Run(":" + os.Getenv("PORT"))
 
 }
