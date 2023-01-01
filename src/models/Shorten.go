@@ -14,9 +14,11 @@ type Shorten struct {
 	Target string `json:"target" bson:"target, required"`
 }
 
-var mongoose *mongo.Collection = db.GetInstance().Collection("shorten")
+var mongoose *mongo.Collection
 
 func Save(path string, target string) error {
+
+	mongoose := db.GetInstance().Collection("shorten")
 
 	_, err := mongoose.InsertOne(context.Background(), Shorten{
 		Path:   path,
@@ -27,6 +29,8 @@ func Save(path string, target string) error {
 }
 
 func FindByPath(path string) (Shorten, error) {
+
+	mongoose := db.GetInstance().Collection("shorten")
 
 	var shorten Shorten
 
