@@ -18,7 +18,6 @@ WORKDIR /app/
 COPY --from=build-stage /app/server.exe .
 COPY --from=build-stage /app/.env .
 
-
 EXPOSE 8080
 
 CMD ["./server.exe"]  
