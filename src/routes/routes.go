@@ -9,7 +9,8 @@ func Routes(router *gin.Engine) {
 
 	api := router.Group("/shorten")
 	{
-		api.GET("/", controllers.ShortenLink)
+		api.POST("/", controllers.ShortenLink)
+		api.GET("/", controllers.GetLink)
 	}
 
 }

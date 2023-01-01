@@ -51,7 +51,6 @@ func Cors(router *gin.Engine) {
 
 func Router() *gin.Engine {
 	LoadEnv()
-	ConnectDB()
 
 	GIN_MODE := os.Getenv("GIN_MODE")
 

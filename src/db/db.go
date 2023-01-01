@@ -1,4 +1,4 @@
-package configs
+package db
 
 import (
 	"context"
@@ -10,7 +10,14 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-func ConnectDB() {
+var client *mongo.Database = nil
+
+func ConnectDB() *mongo.Database {
+
+	if client != nil {
+		return client
+	}
+
 	var MONGO_URL string = os.Getenv("MONGO_URL")
 
 	log.Println("Connecting to MongoDB...")
@@ -38,4 +45,13 @@ func ConnectDB() {
 		log.Println("Connected to MongoDB!")
 	}
 
+	return client.Database("beaurl")
+}
+
+func GetInstance() *mongo.Database {
+	if client == nil {
+		client = ConnectDB()
+	}
+
+	return client
 }
