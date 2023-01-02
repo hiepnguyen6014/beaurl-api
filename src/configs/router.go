@@ -28,10 +28,17 @@ func SetTrustedProxies(router *gin.Engine) {
 }
 
 func GetOrigins() []string {
-	origin := os.Getenv("ORIGIN")
-	origins := strings.Split(origin, ",")
+	GIN_MODE := os.Getenv("GIN_MODE")
 
-	return origins
+	if GIN_MODE == gin.DebugMode {
+		return []string{"http://localhost:3000"}
+	} else {
+
+		origin := os.Getenv("ORIGIN")
+		origins := strings.Split(origin, ",")
+
+		return origins
+	}
 }
 
 func Cors(router *gin.Engine) {
@@ -41,7 +48,7 @@ func Cors(router *gin.Engine) {
 	router.Use(cors.New(cors.Config{
 		AllowOrigins:     origins,
 		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"},
-		AllowHeaders:     []string{"Origin"},
+		AllowHeaders:     []string{"Origin", "Access-Control-Allow-Headers", "Access-Control-Allow-Origin", "Content-Type", "Access-Control-Allow-Methods"},
 		ExposeHeaders:    []string{"Content-Length"},
 		AllowCredentials: true,
 		MaxAge:           12 * time.Hour,
