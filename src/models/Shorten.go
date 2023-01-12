@@ -5,7 +5,6 @@ import (
 
 	"beaurl.vn/api/src/db"
 	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/mongo"
 )
 
 type Shorten struct {
@@ -13,8 +12,6 @@ type Shorten struct {
 	Path   string `json:"path" bson:"path, required"`
 	Target string `json:"target" bson:"target, required"`
 }
-
-var mongoose *mongo.Collection
 
 func Save(path string, target string) error {
 
@@ -34,7 +31,7 @@ func FindByPath(path string) (Shorten, error) {
 
 	var shorten Shorten
 
-	err := mongoose.FindOne(context.Background(), bson.D{{"path", path}}).Decode(&shorten)
+	err := mongoose.FindOne(context.Background(), bson.D{{Key: "path", Value: path}}).Decode(&shorten)
 
 	return shorten, err
 }
